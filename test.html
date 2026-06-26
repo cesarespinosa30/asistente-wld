@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test WLD</title>
+<style>html,body{margin:0;background:#0C0E11;color:#EDEBE3;font-family:sans-serif}</style>
+</head>
+<body>
+<div id="root" style="padding:30px;font-size:18px;">Cargando prueba...</div>
+<script>
+document.getElementById("root").innerHTML = "Paso 1: HTML carga ✓<br>Esperando React...";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+<script>
+(function(){
+  var d = document.getElementById("root");
+  var intentos = 0;
+  function check(){
+    intentos++;
+    if (typeof React !== "undefined" && typeof ReactDOM !== "undefined") {
+      d.innerHTML = "<div style='color:#3BCE82;font-size:22px;'>✓ TODO FUNCIONA</div><br>React cargó correctamente desde internet.<br><br>Esto significa que tu conexión SÍ puede cargar la app.<br><br>El problema está en otra parte (dímelo a Claude).";
+      return;
+    }
+    if (intentos < 40) {
+      d.innerHTML = "Paso 1: HTML carga ✓<br>Esperando React... (intento " + intentos + "/40)";
+      setTimeout(check, 250);
+    } else {
+      d.innerHTML = "<div style='color:#E2533F;font-size:22px;'>✗ REACT NO CARGÓ</div><br>Después de 10 segundos, React no se descargó desde internet.<br><br>Esto confirma que tu RED está bloqueando o impidiendo la carga del CDN (cdn.jsdelivr.net).<br><br>SOLUCIÓN: cambia de WiFi a datos móviles (o viceversa) y recarga.<br><br>(captura para Claude)";
+    }
+  }
+  check();
+})();
+</script>
+</body>
+</html>
